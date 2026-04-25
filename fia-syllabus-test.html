@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIA Assistant — Syllabus Based Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e1a0e;
+  --paper:#f5f0e8;
+  --paper2:#ede8d8;
+  --paper3:#e4deca;
+  --green:#1b5e20;
+  --green2:#2e7d32;
+  --green3:#43a047;
+  --green4:#a5d6a7;
+  --gold:#b8860b;
+  --gold2:#d4a017;
+  --gold3:#f0c030;
+  --red:#b71c1c;
+  --red2:#e53935;
+  --border:#c8b89a;
+  --border2:#b0a080;
+  --shadow:rgba(14,26,14,0.15);
+  --text:#1a1a0a;
+  --text2:#4a3f2a;
+  --text3:#7a6a4a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--paper);
+  font-family:'Source Serif 4',Georgia,serif;
+  color:var(--text);
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(27,94,32,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(184,134,11,0.06) 0%, transparent 50%);
+}
+
+/* ══════════ HEADER ══════════ */
+#hdr{
+  background:var(--green);
+  color:var(--paper);
+  padding:0;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 4px 20px var(--shadow);
+}
+.hdr-top{
+  padding:20px 24px 14px;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  flex-wrap:wrap;gap:12px;
+  border-bottom:2px solid var(--gold2);
+}
+.hdr-brand{}
+.hdr-badge{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:3px;color:var(--gold3);
+  text-transform:uppercase;display:block;margin-bottom:4px;
+}
+.hdr-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(20px,4vw,30px);
+  font-weight:900;color:#fff;
+  line-height:1.1;
+}
+.hdr-title em{color:var(--gold3);font-style:normal;}
+.hdr-right{text-align:right;}
+.hdr-date{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:rgba(255,255,255,0.55);
+  letter-spacing:1px;
+}
+
+/* META BAR */
+#meta-bar{
+  display:none;
+  padding:10px 24px;
+  justify-content:space-between;align-items:center;
+  background:rgba(0,0,0,0.25);
+  flex-wrap:wrap;gap:8px;
+}
+.mp{
+  display:flex;align-items:center;gap:8px;
+  font-family:'IBM Plex Mono',monospace;font-size:12px;
+}
+.mp-lbl{color:rgba(255,255,255,0.5);letter-spacing:1px;}
+.mp-val{color:var(--gold3);font-weight:600;font-size:16px;}
+#timer-el{color:#80ff80;}
+#timer-el.warn{color:#ff6b6b;animation:blink 0.7s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+
+/* PROGRESS */
+#prog-track{height:4px;background:rgba(255,255,255,0.1);display:none;}
+#prog-fill{height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold3));width:0%;transition:width 0.4s;}
+
+/* ══════════ LAYOUT ══════════ */
+#wrap{max-width:860px;margin:0 auto;padding:24px 16px 60px;}
+
+/* ══════════ START SCREEN ══════════ */
+#start-scr{animation:riseUp 0.5s ease both;}
+@keyframes riseUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+.paper-card{
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:4px;
+  box-shadow:0 8px 32px var(--shadow),inset 0 1px 0 rgba(255,255,255,0.6);
+  overflow:hidden;
+  margin-top:20px;
+  position:relative;
+}
+.paper-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:6px;
+  background:repeating-linear-gradient(90deg,var(--green) 0px,var(--green) 20px,var(--gold2) 20px,var(--gold2) 22px,var(--green) 22px,var(--green) 42px);
+}
+
+.start-hero{
+  padding:40px 32px 28px;
+  text-align:center;
+  background:linear-gradient(180deg,var(--paper2) 0%,var(--paper) 100%);
+  border-bottom:1px solid var(--border);
+}
+.test-seal{
+  width:80px;height:80px;border-radius:50%;
+  background:var(--green);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+  font-size:36px;
+  border:3px solid var(--gold2);
+  box-shadow:0 4px 16px rgba(27,94,32,0.3);
+}
+.start-hero h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,4vw,32px);
+  color:var(--green);font-weight:900;
+  margin-bottom:8px;
+}
+.start-hero p{color:var(--text2);font-size:15px;line-height:1.6;}
+
+/* SUBJECT CARDS */
+.subj-wrap{padding:28px 32px;border-bottom:1px solid var(--border);}
+.subj-wrap h3{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.subj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.subj-card{
+  background:var(--paper2);
+  border:1px solid var(--border);
+  border-radius:6px;padding:16px 14px;
+  text-align:center;
+  border-top:3px solid var(--green);
+  transition:transform 0.15s,box-shadow 0.15s;
+}
+.subj-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow);}
+.subj-card:nth-child(2){border-top-color:var(--gold);}
+.subj-card:nth-child(3){border-top-color:var(--red2);}
+.subj-num{
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:900;
+  color:var(--green);line-height:1;
+}
+.subj-card:nth-child(2) .subj-num{color:var(--gold);}
+.subj-card:nth-child(3) .subj-num{color:var(--red2);}
+.subj-name{font-size:13px;color:var(--text2);font-weight:600;margin-top:4px;}
+.subj-topics{font-size:11px;color:var(--text3);margin-top:4px;line-height:1.5;}
+
+/* RULES */
+.rules-wrap{padding:20px 32px 24px;}
+.rules-wrap h3{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--green2);letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.rules-list{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+}
+.rule-item{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:13.5px;color:var(--text2);line-height:1.5;
+}
+.rule-dot{
+  width:20px;height:20px;min-width:20px;
+  border-radius:50%;background:var(--green);
+  color:#fff;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:1px;
+}
+
+.btn-begin{
+  display:block;
+  margin:0 32px 32px;
+  background:var(--green);
+  color:#fff;border:none;
+  padding:18px;border-radius:6px;
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;
+  letter-spacing:2px;cursor:pointer;
+  box-shadow:0 6px 24px rgba(27,94,32,0.35);
+  transition:all 0.2s;
+  border-bottom:4px solid var(--green2);
+}
+.btn-begin:hover{background:var(--green2);transform:translateY(-1px);box-shadow:0 10px 32px rgba(27,94,32,0.4);}
+
+/* STATS ROW */
+.stats-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.ss-item{
+  padding:16px 10px;text-align:center;
+  border-right:1px solid var(--border);
+}
+.ss-item:last-child{border-right:none;}
+.ss-n{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--green);line-height:1;}
+.ss-l{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+
+/* ══════════ QUIZ SCREEN ══════════ */
+#quiz-scr{display:none;}
+
+.q-paper{
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:4px;
+  box-shadow:0 4px 24px var(--shadow);
+  overflow:hidden;
+  margin-top:16px;
+  animation:slideIn 0.3s ease both;
+  position:relative;
+}
+.q-paper::before{
+  content:'';position:absolute;left:56px;top:0;bottom:0;width:1px;
+  background:rgba(184,134,11,0.2);
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(16px);}to{opacity:1;transform:translateX(0);}}
+
+.q-header{
+  padding:12px 18px 12px 18px;
+  background:var(--paper2);
+  border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.q-subj-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 12px;border-radius:3px;font-weight:600;
+}
+.tag-eng{background:rgba(27,94,32,0.12);color:var(--green2);border:1px solid rgba(27,94,32,0.2);}
+.tag-pak{background:rgba(184,134,11,0.12);color:var(--gold);border:1px solid rgba(184,134,11,0.2);}
+.tag-iq{background:rgba(183,28,28,0.1);color:var(--red2);border:1px solid rgba(183,28,28,0.2);}
+.q-topic{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--text3);letter-spacing:1px;
+}
+
+.q-body{padding:24px 22px 20px 22px;}
+.q-num-badge{
+  font-family:'Playfair Display',serif;
+  font-size:42px;font-weight:900;
+  color:rgba(27,94,32,0.08);
+  position:absolute;top:55px;left:8px;
+  line-height:1;pointer-events:none;
+  font-style:italic;
+}
+.q-text{
+  font-family:'Source Serif 4',serif;
+  font-size:18.5px;line-height:1.6;
+  color:var(--text);font-weight:400;
+  padding-left:4px;
+}
+.q-text strong{color:var(--green);}
+
+/* OPTIONS */
+.opts-list{
+  list-style:none;
+  display:flex;flex-direction:column;gap:8px;
+  margin-top:20px;
+}
+.opt-li{
+  display:flex;align-items:flex-start;gap:0;
+  cursor:pointer;
+  border:1.5px solid var(--border);
+  border-radius:6px;
+  overflow:hidden;
+  transition:all 0.18s;
+  background:var(--paper);
+}
+.opt-li:hover:not(.locked){
+  border-color:var(--green2);
+  background:rgba(27,94,32,0.04);
+  transform:translateX(3px);
+}
+.opt-alpha{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13px;font-weight:600;
+  min-width:44px;padding:14px 0;
+  text-align:center;
+  background:var(--paper2);
+  border-right:1.5px solid var(--border);
+  color:var(--text3);
+  transition:all 0.18s;
+}
+.opt-li:hover:not(.locked) .opt-alpha{
+  background:var(--green2);color:#fff;border-color:var(--green2);
+}
+.opt-txt{
+  font-size:15.5px;color:var(--text);
+  padding:13px 16px;line-height:1.4;flex:1;
+}
+.opt-li.correct{border-color:var(--green2);background:rgba(27,94,32,0.06);}
+.opt-li.correct .opt-alpha{background:var(--green2);color:#fff;border-color:var(--green2);}
+.opt-li.correct .opt-txt{color:var(--green);}
+.opt-li.wrong{border-color:var(--red2);background:rgba(183,28,28,0.05);}
+.opt-li.wrong .opt-alpha{background:var(--red2);color:#fff;border-color:var(--red2);}
+.opt-li.wrong .opt-txt{color:var(--red2);}
+.opt-li.faded{opacity:0.4;}
+.opt-li.locked{cursor:not-allowed;}
+
+/* EXPLANATION */
+#exp-panel{
+  display:none;
+  margin:16px 22px 0;
+  padding:14px 18px;
+  background:rgba(240,192,48,0.08);
+  border:1px solid rgba(184,134,11,0.3);
+  border-radius:6px;
+  border-left:4px solid var(--gold2);
+}
+.exp-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:2px;color:var(--gold);
+  text-transform:uppercase;display:block;margin-bottom:6px;
+}
+#exp-txt{font-size:14px;color:var(--text2);line-height:1.7;}
+#exp-txt strong{color:var(--green2);}
+
+/* NAV */
+.q-nav{
+  padding:14px 22px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--border);
+  margin-top:16px;gap:10px;
+}
+.btn-skip{
+  background:transparent;border:1.5px solid var(--border2);
+  color:var(--text3);padding:9px 22px;border-radius:5px;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  transition:all 0.15s;
+}
+.btn-skip:hover{border-color:var(--gold2);color:var(--gold);}
+.btn-nxt{
+  background:var(--green);border:none;border-bottom:3px solid var(--green2);
+  color:#fff;padding:10px 28px;border-radius:5px;
+  font-family:'Playfair Display',serif;font-size:16px;font-weight:700;
+  cursor:pointer;transition:all 0.15s;
+}
+.btn-nxt:not(:disabled):hover{background:var(--green2);transform:translateY(-1px);}
+.btn-nxt:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* ══════════ RESULT SCREEN ══════════ */
+#result-scr{display:none;}
+.result-paper{
+  background:var(--paper);
+  border:1px solid var(--border);
+  border-radius:4px;
+  overflow:hidden;
+  margin-top:20px;
+  box-shadow:0 8px 32px var(--shadow);
+}
+.result-paper::before{
+  content:'';display:block;height:8px;
+  background:repeating-linear-gradient(90deg,var(--green) 0,var(--green) 20px,var(--gold2) 20px,var(--gold2) 22px,var(--green) 22px,var(--green) 42px);
+}
+.result-top{
+  padding:36px 32px;text-align:center;
+  background:linear-gradient(180deg,var(--paper2) 0%,var(--paper) 100%);
+  border-bottom:1px solid var(--border);
+}
+.r-emoji{font-size:60px;display:block;margin-bottom:10px;}
+.r-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,5vw,42px);font-weight:900;
+  color:var(--green);
+}
+.score-display{
+  display:inline-flex;align-items:baseline;gap:6px;
+  margin:20px 0 14px;
+}
+.score-big{
+  font-family:'Playfair Display',serif;
+  font-size:80px;font-weight:900;color:var(--green);line-height:1;
+}
+.score-denom{font-size:24px;color:var(--text3);}
+.grade-pill{
+  display:inline-block;
+  font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+  padding:7px 22px;border-radius:30px;letter-spacing:2px;
+}
+.gA{background:rgba(27,94,32,0.12);color:var(--green2);border:1.5px solid rgba(27,94,32,0.3);}
+.gB{background:rgba(184,134,11,0.12);color:var(--gold);border:1.5px solid rgba(184,134,11,0.3);}
+.gC{background:rgba(255,152,0,0.12);color:#e65100;border:1.5px solid rgba(255,152,0,0.3);}
+.gF{background:rgba(183,28,28,0.1);color:var(--red2);border:1.5px solid rgba(183,28,28,0.3);}
+.r-msg{color:var(--text2);font-size:15px;margin-top:10px;line-height:1.6;}
+
+.result-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border-bottom:1px solid var(--border);
+}
+.rs-item{
+  padding:20px 10px;text-align:center;
+  border-right:1px solid var(--border);
+  border-top:3px solid transparent;
+}
+.rs-item:last-child{border-right:none;}
+.rs-item:nth-child(1){border-top-color:var(--green2);}
+.rs-item:nth-child(2){border-top-color:var(--red2);}
+.rs-item:nth-child(3){border-top-color:var(--gold2);}
+.rs-n{font-family:'Playfair Display',serif;font-size:40px;font-weight:900;line-height:1;}
+.rs-item:nth-child(1) .rs-n{color:var(--green2);}
+.rs-item:nth-child(2) .rs-n{color:var(--red2);}
+.rs-item:nth-child(3) .rs-n{color:var(--gold2);}
+.rs-l{font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+
+.btn-retry{
+  display:block;margin:28px 32px 32px;
+  background:var(--green);color:#fff;border:none;
+  padding:16px;border-radius:6px;
+  font-family:'Playfair Display',serif;font-size:19px;font-weight:700;
+  cursor:pointer;box-shadow:0 6px 20px rgba(27,94,32,0.3);
+  transition:all 0.2s;border-bottom:4px solid var(--green2);
+  letter-spacing:1px;
+}
+.btn-retry:hover{background:var(--green2);transform:translateY(-1px);}
+
+/* REVIEW */
+#rev-wrap{padding:0 24px 32px;}
+.rev-title{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--green2);letter-spacing:3px;text-transform:uppercase;
+  padding:20px 0 14px;border-bottom:1px solid var(--border);margin-bottom:14px;
+}
+.rev-card{
+  border:1px solid var(--border);border-radius:6px;
+  overflow:hidden;margin-bottom:10px;
+  border-left:4px solid transparent;
+}
+.rev-card.rc{border-left-color:var(--green2);}
+.rev-card.rw{border-left-color:var(--red2);}
+.rev-card.rs{border-left-color:var(--gold2);}
+.rev-hd{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;background:var(--paper2);
+  border-bottom:1px solid var(--border);
+}
+.rev-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
+  padding:3px 10px;border-radius:20px;letter-spacing:1px;white-space:nowrap;
+}
+.rc .rev-badge{background:rgba(27,94,32,0.12);color:var(--green2);}
+.rw .rev-badge{background:rgba(183,28,28,0.1);color:var(--red2);}
+.rs .rev-badge{background:rgba(184,134,11,0.1);color:var(--gold);}
+.rev-q{font-size:13.5px;color:var(--text);line-height:1.4;}
+.rev-ans{padding:8px 14px;font-size:12.5px;color:var(--text3);}
+
+@media(max-width:600px){
+  .subj-grid{grid-template-columns:1fr;}
+  .rules-list{grid-template-columns:1fr;}
+  .stats-strip{grid-template-columns:repeat(2,1fr);}
+  .start-hero,.subj-wrap,.rules-wrap{padding-left:18px;padding-right:18px;}
+  .btn-begin{margin:0 18px 24px;}
+  .result-top{padding:28px 18px;}
+  .btn-retry{margin:20px 18px 24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="hdr">
+  <div class="hdr-top">
+    <div class="hdr-brand">
+      <span class="hdr-badge">⚖ Federal Investigation Agency — Pakistan</span>
+      <div class="hdr-title">FIA <em>Assistant Post</em> Test</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-date">Syllabus Based · Past Paper Style</div>
+    </div>
+  </div>
+  <div id="meta-bar">
+    <div class="mp"><span class="mp-lbl">Q</span><span class="mp-val" id="qcount">1/100</span></div>
+    <div class="mp"><span class="mp-lbl">TIME</span><span class="mp-val" id="timer-el">90:00</span></div>
+    <div class="mp"><span class="mp-lbl">SCORE</span><span class="mp-val" id="live-s" style="color:#80ff80">0</span></div>
+    <div class="mp"><span class="mp-lbl">WRONG</span><span class="mp-val" id="live-w" style="color:#ff8080">0</span></div>
+    <div class="mp"><span class="mp-lbl">SKIP</span><span class="mp-val" id="live-sk" style="color:var(--gold3)">0</span></div>
+  </div>
+  <div id="prog-track"><div id="prog-fill"></div></div>
+</div>
+
+<div id="wrap">
+
+<!-- START -->
+<div id="start-scr">
+  <div class="paper-card">
+    <div class="start-hero">
+      <div class="test-seal">📋</div>
+      <h2>FIA Assistant Post — Mock Test</h2>
+      <p>Syllabus ke mutabiq — English, Pakistan Studies &amp; IQ<br>
+      Past paper style questions · Roman Urdu Explanations · Real exam feel</p>
+    </div>
+    <div class="stats-strip">
+      <div class="ss-item"><div class="ss-n">100</div><div class="ss-l">Questions</div></div>
+      <div class="ss-item"><div class="ss-n">90</div><div class="ss-l">Minutes</div></div>
+      <div class="ss-item"><div class="ss-n">50%</div><div class="ss-l">Pass Marks</div></div>
+      <div class="ss-item"><div class="ss-n">3</div><div class="ss-l">Subjects</div></div>
+    </div>
+    <div class="subj-wrap">
+      <h3>// Subject Distribution</h3>
+      <div class="subj-grid">
+        <div class="subj-card">
+          <div class="subj-num">40</div>
+          <div class="subj-name">English</div>
+          <div class="subj-topics">Sentence Completion · Vocab · Antonyms · Synonyms · Comprehension · Grammar · Idioms</div>
+        </div>
+        <div class="subj-card">
+          <div class="subj-num">45</div>
+          <div class="subj-name">Pakistan Studies</div>
+          <div class="subj-topics">Geography · Dams · Wars · History · Constitution · Quaid-e-Azam · Treaties · Sports</div>
+        </div>
+        <div class="subj-card">
+          <div class="subj-num">15</div>
+          <div class="subj-name">IQ / Reasoning</div>
+          <div class="subj-topics">Word Problems · Arithmetic · Diagnostic · Graphs · Ratio</div>
+        </div>
+      </div>
+    </div>
+    <div class="rules-wrap">
+      <h3>// Hidayat (Instructions)</h3>
+      <div class="rules-list">
+        <div class="rule-item"><div class="rule-dot">1</div><span>Har sawal ka sirf ek jawab sahi hai</span></div>
+        <div class="rule-item"><div class="rule-dot">2</div><span>Jawab dene ke baad explanation padhen</span></div>
+        <div class="rule-item"><div class="rule-dot">3</div><span>90 minute ka waqt hai — time manage karein</span></div>
+        <div class="rule-item"><div class="rule-dot">4</div><span>Skip kar sakte hain — baad mein review karein</span></div>
+      </div>
+    </div>
+    <button class="btn-begin" onclick="startQ()">TEST SHURU KAREIN →</button>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz-scr">
+  <div class="q-paper" id="q-paper">
+    <div class="q-num-badge" id="qnb">1</div>
+    <div class="q-header">
+      <span class="q-subj-tag" id="q-subj-tag">English</span>
+      <span class="q-topic" id="q-topic-tag">Vocabulary</span>
+    </div>
+    <div class="q-body">
+      <div class="q-text" id="q-txt">Question here</div>
+      <ul class="opts-list" id="opts-list"></ul>
+    </div>
+    <div id="exp-panel">
+      <span class="exp-tag">// Wazahat (Explanation)</span>
+      <span id="exp-txt"></span>
+    </div>
+    <div class="q-nav">
+      <button class="btn-skip" onclick="skipQ()">CHHOR DEIN (SKIP)</button>
+      <button class="btn-nxt" id="btn-nxt" disabled onclick="nextQ()">AGLA SAWAL →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="result-scr">
+  <div class="result-paper">
+    <div class="result-top">
+      <span class="r-emoji" id="r-emoji">🏆</span>
+      <div class="r-title" id="r-title">TEST MUKAMMAL!</div>
+      <div class="score-display">
+        <span class="score-big" id="r-sc">0</span>
+        <span class="score-denom">/ 100</span>
+      </div>
+      <div class="grade-pill" id="r-grade">GRADE A</div>
+      <p class="r-msg" id="r-msg">—</p>
+    </div>
+    <div class="result-stats">
+      <div class="rs-item"><div class="rs-n" id="rc">0</div><div class="rs-l">Sahi ✓</div></div>
+      <div class="rs-item"><div class="rs-n" id="rw">0</div><div class="rs-l">Galat ✗</div></div>
+      <div class="rs-item"><div class="rs-n" id="rsk">0</div><div class="rs-l">Skip</div></div>
+    </div>
+    <button class="btn-retry" onclick="retryQ()">↺ DOBARA DEIN (RETRY)</button>
+    <div id="rev-wrap">
+      <div class="rev-title">// Jawabaat ki Tafseeel (Answer Review)</div>
+      <div id="rev-list"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// 100 QUESTIONS — Syllabus Based, Past Paper Style
+// Subjects: English(40) | Pakistan Studies(45) | IQ(15)
+// Explanations: Roman Urdu
+// ═══════════════════════════════════════════════════════════
+const Qs=[
+
+// ══════════════ ENGLISH — SENTENCE COMPLETION (6) ══════════════
+{s:"ENGLISH",t:"Sentence Completion",
+ q:"The minister _____ the new policy in the press conference yesterday.",
+ o:["announce","announced","announcing","will announce"],a:1,
+ e:"'Yesterday' past tense ka indicator hai — 'announced' sahi hai. Simple Past tense use hoti hai kisi past action ke liye."},
+
+{s:"ENGLISH",t:"Sentence Completion",
+ q:"Neither the students nor the teacher _____ present when the fire alarm rang.",
+ o:["were","was","are","is"],a:1,
+ e:"'Neither...nor' mein verb us noun ke mutabiq hoti hai jo verb ke qareeb ho. 'Teacher' singular hai isliye 'was' sahi hai."},
+
+{s:"ENGLISH",t:"Sentence Completion",
+ q:"He has been working on this project _____ three years.",
+ o:["since","for","from","during"],a:1,
+ e:"'For' time duration ke saath use hota hai (teen saal). 'Since' kisi specific point (since 2021) ke saath aata hai."},
+
+{s:"ENGLISH",t:"Sentence Completion",
+ q:"The accused was found guilty and _____ to five years in prison.",
+ o:["sentenced","punished","convicted","arrested"],a:0,
+ e:"'Sentenced to' ek legal term hai — judge kisi ko saza sunata hai. 'Punished' general hai, 'sentenced' specific legal context mein use hota hai."},
+
+{s:"ENGLISH",t:"Sentence Completion",
+ q:"If I _____ you, I would accept the offer immediately.",
+ o:["am","was","were","had been"],a:2,
+ e:"Second Conditional (hypothetical) mein 'If I were you' use hota hai — 'were' sahi hai chahe subject singular ho. Yeh formal/grammatical shart hai."},
+
+{s:"ENGLISH",t:"Sentence Completion",
+ q:"The government has taken steps to _____ corruption at all levels.",
+ o:["eradicate","aggravate","proliferate","exacerbate"],a:0,
+ e:"'Eradicate' = jad se khatam karna. 'Aggravate/Exacerbate' = badtar karna. 'Proliferate' = phailna. Context mein eradicate sahi hai."},
+
+// ══════════════ ENGLISH — VOCABULARY (6) ══════════════
+{s:"ENGLISH",t:"Vocabulary",
+ q:"What is the meaning of 'LACONIC'?",
+ o:["Using many words","Using very few words","Being dishonest","Speaking loudly"],a:1,
+ e:"Laconic = mukhtasar aur seedha baat karna. Sparta (Laconia) ke log apni brief baaton ke liye mashhoor the — isi se yeh lafz bana."},
+
+{s:"ENGLISH",t:"Vocabulary",
+ q:"'AMELIORATE' means:",
+ o:["To worsen","To improve","To destroy","To ignore"],a:1,
+ e:"Ameliorate = behtar karna, sudhaarna. Jaise: 'The new policy will ameliorate the situation.'"},
+
+{s:"ENGLISH",t:"Vocabulary",
+ q:"The word 'PERFIDIOUS' means:",
+ o:["Loyal and trustworthy","Deceitful and untrustworthy","Extremely skilled","Cautious"],a:1,
+ e:"Perfidious = dhokhebaaz, bewafa. Jaise: 'a perfidious ally' — woh saathi jo dhoka de."},
+
+{s:"ENGLISH",t:"Vocabulary",
+ q:"'VINDICATE' most closely means:",
+ o:["To blame","To clear of suspicion/blame","To punish","To deceive"],a:1,
+ e:"Vindicate = kisi ko ilzaam se bari karna, sahi saabit karna. Jaise: 'The evidence vindicated him' — saboot ne usse bari kar diya."},
+
+{s:"ENGLISH",t:"Vocabulary",
+ q:"What does 'COGENT' mean?",
+ o:["Weak and unconvincing","Clear, logical and convincing","Confusing","Irrelevant"],a:1,
+ e:"Cogent = aisaa argument jo mazboot, saaf aur qaa'il karne wala ho. Jaise: 'a cogent argument for reform.'"},
+
+{s:"ENGLISH",t:"Vocabulary",
+ q:"'OPAQUE' is the antonym of:",
+ o:["Dark","Transparent","Solid","Cloudy"],a:1,
+ e:"Opaque = jo roshni na aane de, ghair-shafffaf. Transparent iska seedha ulta hai. Jaise: 'opaque glass.'"},
+
+// ══════════════ ENGLISH — ANTONYMS (5) ══════════════
+{s:"ENGLISH",t:"Antonyms",
+ q:"Antonym of 'FRUGAL' is:",
+ o:["Economical","Thrifty","Extravagant","Cautious"],a:2,
+ e:"Frugal = kitaabi / qaanaat pasand (spending carefully). Iska ulta Extravagant = fuzool kharch. Thrifty bhi frugal ka matlab hai."},
+
+{s:"ENGLISH",t:"Antonyms",
+ q:"Antonym of 'LOQUACIOUS' is:",
+ o:["Talkative","Verbose","Taciturn","Eloquent"],a:2,
+ e:"Loquacious = bahut zyada bolne wala. Taciturn = khamoshi pasand karne wala, kam bolne wala. Yeh exact antonym hai."},
+
+{s:"ENGLISH",t:"Antonyms",
+ q:"Antonym of 'BENIGN' is:",
+ o:["Kind","Malignant","Gentle","Harmless"],a:1,
+ e:"Benign = meharbaan, bے zarar (especially medical: benign tumor). Malignant = nuqsaandeh, khatarnak — seedha ulta."},
+
+{s:"ENGLISH",t:"Antonyms",
+ q:"Antonym of 'EPHEMERAL' is:",
+ o:["Brief","Temporary","Permanent/Eternal","Fleeting"],a:2,
+ e:"Ephemeral = thodi der ka, arzi. Permanent/Eternal = hamesha ka, dawaam. Yeh antonym hai."},
+
+{s:"ENGLISH",t:"Antonyms",
+ q:"Antonym of 'ACRIMONY' is:",
+ o:["Bitterness","Hostility","Cordiality","Resentment"],a:2,
+ e:"Acrimony = talakhi, kadwahat (especially in speech/manner). Cordiality = dilsoozi, meetha pann — exact opposite."},
+
+// ══════════════ ENGLISH — SYNONYMS (5) ══════════════
+{s:"ENGLISH",t:"Synonyms",
+ q:"Synonym of 'UBIQUITOUS' is:",
+ o:["Rare","Omnipresent","Unique","Powerful"],a:1,
+ e:"Ubiquitous = har jagah maujood. Omnipresent bhi yahi matlab rakhta hai. Jaise: 'Mobile phones are now ubiquitous.'"},
+
+{s:"ENGLISH",t:"Synonyms",
+ q:"Synonym of 'EXORBITANT' is:",
+ o:["Reasonable","Moderate","Excessive","Cheap"],a:2,
+ e:"Exorbitant = had se zyada (especially price). Excessive = zyada — dono ka matlab milta julta hai. Jaise: 'exorbitant prices.'"},
+
+{s:"ENGLISH",t:"Synonyms",
+ q:"Synonym of 'CLANDESTINE' is:",
+ o:["Open","Public","Secret","Official"],a:2,
+ e:"Clandestine = chupaaye se kiya gaya, poshida. Secret iska synonym hai. Jaise: 'a clandestine meeting' = chhupi hui mulaqat."},
+
+{s:"ENGLISH",t:"Synonyms",
+ q:"Synonym of 'REITERATE' is:",
+ o:["Begin","Repeat","Change","Deny"],a:1,
+ e:"Reiterate = phir se kehna, dobarana dohrana. Repeat exact synonym hai."},
+
+{s:"ENGLISH",t:"Synonyms",
+ q:"Synonym of 'DRACONIAN' is:",
+ o:["Lenient","Fair","Extremely harsh","Generous"],a:2,
+ e:"Draconian = bahut sakht (from Draco — Athenian lawmaker with extremely harsh laws). Extremely harsh iska synonym hai."},
+
+// ══════════════ ENGLISH — COMPREHENSION (4) ══════════════
+{s:"ENGLISH",t:"Comprehension",
+ q:"Read: 'The proliferation of social media has fundamentally altered the way information is disseminated.' What does 'proliferation' mean here?",
+ o:["Decline","Rapid increase and spread","Regulation","Misuse"],a:1,
+ e:"Proliferation = tezi se phelna, izafa. Is sentence mein social media ki rapid growth ki baat ho rahi hai."},
+
+{s:"ENGLISH",t:"Comprehension",
+ q:"'Despite the seemingly insurmountable obstacles, the team persevered.' What does 'insurmountable' mean?",
+ o:["Easily overcome","Impossible to overcome","Minor","Expected"],a:1,
+ e:"Insurmountable = jo overcome na kiya ja sake, jo qaabu mein na aaye. 'In-' = nahi, 'surmount' = cross karna."},
+
+{s:"ENGLISH",t:"Comprehension",
+ q:"'The politician's rhetoric was nothing but a smokescreen for his true intentions.' 'Smokescreen' here means:",
+ o:["A literal screen of smoke","Something used to conceal true motives","A public speech","A type of propaganda"],a:1,
+ e:"Smokescreen (muhawara) = koi cheez jo asli maqsad chupaane ke liye use ki jaaye. Politician asli iraaday chuupa raha tha."},
+
+{s:"ENGLISH",t:"Comprehension",
+ q:"'The arid landscape offered little respite from the relentless heat.' 'Respite' means:",
+ o:["Shelter","Escape","Temporary relief","Shade"],a:2,
+ e:"Respite = thodi der ka aaraam ya sukoon. 'Little respite' matlab garmi se koi arzi rahat nahi mili."},
+
+// ══════════════ ENGLISH — SENTENCE CORRECTION (4) ══════════════
+{s:"ENGLISH",t:"Sentence Correction",
+ q:"Identify the correct sentence:",
+ o:["Each of the students have submitted their assignment.","Each of the students has submitted their assignment.","Each of the students have submitted his assignment.","Each of the student has submitted their assignment."],a:1,
+ e:"'Each' singular subject hai — 'has' use hoga. 'Their' gender-neutral plural pronoun ab singular reference mein bhi widely accepted hai."},
+
+{s:"ENGLISH",t:"Sentence Correction",
+ q:"Which sentence is grammatically correct?",
+ o:["He is one of the officers who has been promoted.","He is one of the officers who have been promoted.","He is one of the officer who has been promoted.","He is one of the officers who had promote."],a:1,
+ e:"'One of the officers who' mein relative clause 'officers' ko refer karta hai (plural) — isliye 'have' sahi hai."},
+
+{s:"ENGLISH",t:"Sentence Correction",
+ q:"Choose the correct sentence:",
+ o:["The news are shocking.","The news were shocking.","The news is shocking.","The news be shocking."],a:2,
+ e:"'News' uncountable noun hai — hamesha singular verb leti hai. 'The news is' sahi hai — 'news are' galat hai."},
+
+{s:"ENGLISH",t:"Sentence Correction",
+ q:"Find the error: 'The committee have reached their decision unanimously.'",
+ o:["'committee have' should be 'committee has'","'their' should be 'its'","Both A and B are correct changes","No error — British English allows this"],a:3,
+ e:"British English mein collective nouns (committee, team, jury) plural verb le sakte hain jab members alag alag kaam karein. 'Have...their' British style mein correct hai."},
+
+// ══════════════ ENGLISH — IDIOMS (5) ══════════════
+{s:"ENGLISH",t:"Idioms",
+ q:"'To beat around the bush' means:",
+ o:["To garden enthusiastically","To avoid coming to the main point","To fight aggressively","To search thoroughly"],a:1,
+ e:"'Beat around the bush' = asli baat pe na aana, ghuma phira ke baat karna. Jaise: 'Stop beating around the bush and tell me the truth.'"},
+
+{s:"ENGLISH",t:"Idioms",
+ q:"'A blessing in disguise' means:",
+ o:["A hidden danger","Something bad that turns out to be good","A fake compliment","A lucky escape"],a:1,
+ e:"'Blessing in disguise' = koi cheez jo pehle buri lage lekin baad mein faida de. Jaise: Job loss jo naya behtar mauqa laye."},
+
+{s:"ENGLISH",t:"Idioms",
+ q:"'To burn the midnight oil' means:",
+ o:["To waste resources","To work late into the night","To be reckless","To celebrate"],a:1,
+ e:"'Burn the midnight oil' = raat geye kaam karna, mehnat karna. Jaise: 'She burned the midnight oil to prepare for the FIA test.'"},
+
+{s:"ENGLISH",t:"Idioms",
+ q:"'To let the cat out of the bag' means:",
+ o:["To release an animal","To reveal a secret accidentally","To cause confusion","To make a mistake"],a:1,
+ e:"'Let the cat out of the bag' = jaane anjaane raaz faash kar dena. Jaise: 'He let the cat out of the bag about the surprise party.'"},
+
+{s:"ENGLISH",t:"Idioms",
+ q:"'Bite the bullet' means:",
+ o:["To be wounded","To eat something hard","To endure a painful situation with courage","To make a hasty decision"],a:2,
+ e:"'Bite the bullet' = mushkil ya talkh baat ko sabar se bardaasht karna. Jaise: 'Just bite the bullet and take the exam.'"},
+
+// ══════════════ ENGLISH — PAIR OF WORDS (5) ══════════════
+{s:"ENGLISH",t:"Pair of Words",
+ q:"Choose correct usage: 'Assent/Ascent'",
+ o:["The climbers made a quick assent.","The manager gave his ascent to the plan.","The climbers made a quick ascent.","The manager's assent was rejected."],a:2,
+ e:"'Ascent' = upar chadhna (mountaineering). 'Assent' = raazi hona, manzoori dena. So 'climbers made a quick ascent' sahi hai."},
+
+{s:"ENGLISH",t:"Pair of Words",
+ q:"'Affect' vs 'Effect' — correct sentence:",
+ o:["The medicine did not effect her recovery.","The medicine did not affect her recovery.","How will this affect have on her?","The affect of the policy was negative."],a:1,
+ e:"'Affect' = verb (kisi par asar karna). 'Effect' = noun (asar, natija). 'Did not affect her recovery' = sahi usage."},
+
+{s:"ENGLISH",t:"Pair of Words",
+ q:"'Compliment' vs 'Complement' — choose correct:",
+ o:["Her scarf complemented her dress perfectly.","Her scarf complimented her dress perfectly.","He gave her a complement on her work.","She complemented him on his promotion."],a:0,
+ e:"'Complement' = kisi cheez ko mukammal karna / match karna. 'Compliment' = tarif karna. Scarf dress ko 'complement' karta hai — match karta hai."},
+
+{s:"ENGLISH",t:"Pair of Words",
+ q:"'Principal' vs 'Principle' — correct usage:",
+ o:["The principle of the school addressed students.","He has no principal in life.","The principal reason for failure was lack of preparation.","She is a woman of high principal."],a:2,
+ e:"'Principal' = mukhya (noun/adjective: principal reason, school principal). 'Principle' = usool, buniyaad. 'Principal reason' sahi hai."},
+
+{s:"ENGLISH",t:"Pair of Words",
+ q:"'Moral' vs 'Morale' — correct sentence:",
+ o:["The team's moral was high after the win.","She always acts on high morale standards.","The morale of the troops was very high.","He has strong morale values."],a:2,
+ e:"'Morale' = jazba, hausla (team spirit). 'Moral' = akhlaqi, usool. 'Morale of the troops was high' = fauj ka hausla buland tha — sahi hai."},
+
+// ══════════════ PAKISTAN STUDIES — GEOGRAPHY (5) ══════════════
+{s:"PAKISTAN STUDIES",t:"Geography of Pakistan",
+ q:"Pakistan ka sabse chhota subaa raqqba ke lihaaz se kaun sa hai?",
+ o:["Sindh","Balochistan","KPK","Punjab"],a:3,
+ e:"Punjab raqqba ke lihaaz se Pakistan ka sabse chhota subaa hai (205,344 km²) lekin abaadi mein sabse bada hai. Balochistan sabse bada raqqba rakhta hai."},
+
+{s:"PAKISTAN STUDIES",t:"Geography of Pakistan",
+ q:"Kaun sa darya Pakistan mein 'Aab-e-Hayat' (lifeline) kaha jata hai?",
+ o:["Jhelum","Chenab","Indus (Sindh)","Ravi"],a:2,
+ e:"Darya Sindh (Indus River) ko Pakistan ki 'lifeline' kaha jata hai — yeh Pakistan ke lambaai mein behta aur agriculture ka bunyaad hai."},
+
+{s:"PAKISTAN STUDIES",t:"Geography of Pakistan",
+ q:"Khyber Pass Pakistan ko kisse milata hai?",
+ o:["India","Iran","China","Afghanistan"],a:3,
+ e:"Khyber Pass Pakistan (KPK) aur Afghanistan ke darmiyan waqe famous mountain pass hai — tarikhhi lihaz se bahut ahem."},
+
+{s:"PAKISTAN STUDIES",t:"Geography of Pakistan",
+ q:"Pakistan mein 'Cold Desert' kaun sa hai?",
+ o:["Thar Desert","Cholistan","Kharan Desert","Katpana (Skardu)"],a:3,
+ e:"Katpana Desert (Skardu, Gilgit-Baltistan) duniya ke unche tareen 'cold deserts' mein se ek hai — yahan baraf bhi girti hai."},
+
+{s:"PAKISTAN STUDIES",t:"Geography of Pakistan",
+ q:"Pakistan ke kaunse subay mein 'Makran Coast' waqe hai?",
+ o:["Sindh","KPK","Balochistan","Punjab"],a:2,
+ e:"Makran Coast Balochistan mein Behr-e-Arab ke saahil par hai — Gwadar bhi isi ilaqe mein hai."},
+
+// ══════════════ PAKISTAN STUDIES — DAMS (4) ══════════════
+{s:"PAKISTAN STUDIES",t:"Dams in Pakistan",
+ q:"Mangla Dam Pakistan ke kaunse darya par bana hai?",
+ o:["Indus","Chenab","Jhelum","Ravi"],a:2,
+ e:"Mangla Dam darya Jhelum par bana hai — Azad Kashmir (Mirpur) mein. 1967 mein mukammal hua."},
+
+{s:"PAKISTAN STUDIES",t:"Dams in Pakistan",
+ q:"Pakistan ka sabse bada dam kaun sa hai?",
+ o:["Mangla Dam","Tarbela Dam","Warsak Dam","Chashma Dam"],a:1,
+ e:"Tarbela Dam (darya Indus par) Pakistan ka sabse bada aur duniya ke barey earthfill dams mein se ek hai — 1976 mein mukammal hua."},
+
+{s:"PAKISTAN STUDIES",t:"Dams in Pakistan",
+ q:"Warsak Dam kahan waqe hai?",
+ o:["Peshawar ke qareeb — Darya Kabul par","Lahore ke qareeb — Darya Ravi par","Quetta ke qareeb","Sukkur ke qareeb"],a:0,
+ e:"Warsak Dam Peshawar ke nazdik Darya Kabul par bana hai — bijli aur saraab (irrigation) dono ke liye kaam aata hai."},
+
+{s:"PAKISTAN STUDIES",t:"Dams in Pakistan",
+ q:"'Diamer-Bhasha Dam' kahan zair-e-taameer hai?",
+ o:["Sindh — Darya Indus","Gilgit-Baltistan — Darya Indus","Balochistan — Darya Hub","KPK — Darya Swat"],a:1,
+ e:"Diamer-Bhasha Dam Gilgit-Baltistan mein Darya Indus par zair-e-taameer hai — Pakistan ka future mega water project."},
+
+// ══════════════ PAKISTAN STUDIES — DESERTS & MOUNTAINS (4) ══════════════
+{s:"PAKISTAN STUDIES",t:"Deserts & Mountains",
+ q:"Thar Desert ka zyada hissa kahan hai?",
+ o:["Punjab","Balochistan","Sindh","KPK"],a:2,
+ e:"Thar Desert ka zyada hissa Sindh (Pakistan) aur Rajasthan (India) mein hai. Pakistan ka sabse bada desert hai."},
+
+{s:"PAKISTAN STUDIES",t:"Deserts & Mountains",
+ q:"'Cholistan Desert' ko aur kya kaha jata hai?",
+ o:["Rohi","Thal","Pat","Kharan"],a:0,
+ e:"Cholistan Desert ko 'Rohi' bhi kaha jata hai — yeh Punjab mein Bahawalpur ke paas waqe hai. Jeep rally ke liye mashhoor."},
+
+{s:"PAKISTAN STUDIES",t:"Deserts & Mountains",
+ q:"Karakoram Range mein kul kitne peaks 8000 meter se upar hain?",
+ o:["2","3","4","5"],a:2,
+ e:"Karakoram mein 4 peaks 8000m+ hain: K2 (8611m), Gasherbrum I (8080m), Broad Peak (8051m), Gasherbrum II (8034m)."},
+
+{s:"PAKISTAN STUDIES",t:"Deserts & Mountains",
+ q:"'Nanga Parbat' kaunsi mountain range mein hai?",
+ o:["Karakoram","Himalaya","Hindu Kush","Sulaiman Range"],a:1,
+ e:"Nanga Parbat (8126m) Himalaya Range mein hai — 'Killer Mountain' kaha jata hai — duniya ka 9waan uncha pahar."},
+
+// ══════════════ PAKISTAN STUDIES — WARS & HISTORY (5) ══════════════
+{s:"PAKISTAN STUDIES",t:"Wars Fought by Pakistan",
+ q:"1965 ki jang mein Pakistan-India ceasefire kab hua?",
+ o:["6 September 1965","23 September 1965","1 October 1965","15 August 1965"],a:1,
+ e:"1965 ki Pakistan-India jang mein UN ki tawasut se 23 September 1965 ko ceasefire hua. 6 September 'Youm-e-Difa' hai."},
+
+{s:"PAKISTAN STUDIES",t:"Wars Fought by Pakistan",
+ q:"Operation Gibraltar kis jang se pehle hua?",
+ o:["1948 war","1965 war","1971 war","Kargil 1999"],a:1,
+ e:"Operation Gibraltar 1965 ki jang se pehle Pakistan ne kiya tha — Kashmir mein guerrilla force bhejne ki koshish ki — jis ne 1965 ki jang ko trigger kiya."},
+
+{s:"PAKISTAN STUDIES",t:"Wars Fought by Pakistan",
+ q:"1971 ki jang mein Pakistan ki fareek Sena ne surrender kab kiya?",
+ o:["3 December 1971","10 December 1971","16 December 1971","20 December 1971"],a:2,
+ e:"16 December 1971 ko General A.A.K. Niazi ne Dhaka mein 93,000 faujioon ke saath surrender kiya — Bangladesh wujood mein aaya."},
+
+{s:"PAKISTAN STUDIES",t:"Wars Fought by Pakistan",
+ q:"Kargil conflict kab hua?",
+ o:["1997","1998","1999","2000"],a:2,
+ e:"Kargil conflict May-July 1999 mein hua — Pakistan aur India ke darmiyan Kashmir ke Kargil district mein limited jang."},
+
+{s:"PAKISTAN STUDIES",t:"Wars Fought by Pakistan",
+ q:"'Youm-e-Takbeer' (Greatness Day) Pakistan mein kab manaya jata hai?",
+ o:["14 August","28 May","23 March","6 September"],a:1,
+ e:"28 May 1998 ko Pakistan ne Chagai mein nuclear tests kiye — isliye 28 May 'Youm-e-Takbeer' hai."},
+
+// ══════════════ PAKISTAN STUDIES — PRESIDENTS/PMs/GOVERNORS (5) ══════════════
+{s:"PAKISTAN STUDIES",t:"Presidents, PMs & Governors",
+ q:"Pakistan ke kaunse PM ko 'Father of Nuclear Programme' kaha jata hai?",
+ o:["Liaquat Ali Khan","Zulfikar Ali Bhutto","Nawaz Sharif","Benazir Bhutto"],a:1,
+ e:"Zulfikar Ali Bhutto ne 1972 mein Pakistan ka nuclear programme shuru kiya — isliye unhein Pakistan ke atomic programme ka bani mana jata hai."},
+
+{s:"PAKISTAN STUDIES",t:"Presidents, PMs & Governors",
+ q:"Pakistan ke pehle elected President kaun the?",
+ o:["Iskander Mirza","Ayub Khan","Yahya Khan","Z.A. Bhutto"],a:3,
+ e:"Z.A. Bhutto Pakistan ke pehle elected civilian President the (1971-73) aur baad mein PM bhi. Ayub Khan ne khud ko President banaya tha — elected nahi the."},
+
+{s:"PAKISTAN STUDIES",t:"Presidents, PMs & Governors",
+ q:"Pakistan ke State Bank ka Governor kon appoint karta hai?",
+ o:["Prime Minister","President","Finance Minister","Federal Cabinet"],a:1,
+ e:"State Bank of Pakistan ke Governor ko President of Pakistan appoint karta hai — Federal Government ki recommendation par."},
+
+{s:"PAKISTAN STUDIES",t:"Presidents, PMs & Governors",
+ q:"Army Chief (COAS) kaun appoint karta hai Pakistan mein?",
+ o:["President alone","Prime Minister alone","President on PM's advice","Parliament"],a:2,
+ e:"Chief of Army Staff (COAS) ko President of Pakistan Prime Minister ki advice par appoint karta hai."},
+
+{s:"PAKISTAN STUDIES",t:"Presidents, PMs & Governors",
+ q:"Pakistan mein Senate (Upper House) ka Chairman kaun chunta hai?",
+ o:["President of Pakistan","Senate members themselves","Prime Minister","Supreme Court"],a:1,
+ e:"Senate ka Chairman Senate ke elected members khud apne darmiyan se chuntay hain — by vote."},
+
+// ══════════════ PAKISTAN STUDIES — CONSTITUTION (5) ══════════════
+{s:"PAKISTAN STUDIES",t:"Constitutional Amendments",
+ q:"Pakistan ka kaunsa aeen sabse zyada amaandments (amendments) ke baad bhi nafiz hai?",
+ o:["1956 Constitution","1962 Constitution","1973 Constitution","1962 Constitution"],a:2,
+ e:"1973 ka aeen Pakistan ka maujoda aur sabse zyada amaandments wala constitution hai — 26 se zyada amendments ho chuke hain."},
+
+{s:"PAKISTAN STUDIES",t:"Constitutional Amendments",
+ q:"8th Constitutional Amendment kab hua aur iska asar kya tha?",
+ o:["1973 — Bhutto era","1985 — Zia ul Haq era","1991 — Nawaz era","1997 — Nawaz era"],a:1,
+ e:"8th Amendment 1985 mein Zia ul Haq ke daur mein hua — Article 58-2(b) shamil hua jis se President PM ko hata sakta tha."},
+
+{s:"PAKISTAN STUDIES",t:"Constitutional Amendments",
+ q:"Kaunse Article ke tahat Pakistan mein 'Emergency' lagayi ja sakti hai?",
+ o:["Article 228","Article 232","Article 245","Article 199"],a:1,
+ e:"Article 232 ke tahat President national emergency lagaa sakta hai — agar security ya economic threat ho."},
+
+{s:"PAKISTAN STUDIES",t:"Constitutional Amendments",
+ q:"'Islamic Provisions' Pakistan ke aeen ke kaunse hisse mein hain?",
+ o:["Chapter 1","Part IX — Islamic Provisions","Part II","Schedule 2"],a:1,
+ e:"Pakistan ke Constitution 1973 ka Part IX 'Islamic Provisions' hai jis mein Islamiat se mutaliq ahkaam hain — Articles 227-231."},
+
+{s:"PAKISTAN STUDIES",t:"Constitutional Amendments",
+ q:"Zakat Ordinance Pakistan mein kab naafiiz hua?",
+ o:["1978","1979","1980","1982"],a:1,
+ e:"Zakat aur Ushr Ordinance 1979 mein Zia ul Haq ke daur mein nafiz hua — Pakistan mein zakat ki deduction officially shuru hui."},
+
+// ══════════════ PAKISTAN STUDIES — LIFE OF QUAID & IQBAL (4) ══════════════
+{s:"PAKISTAN STUDIES",t:"Life of Quaid-e-Azam",
+ q:"Quaid-e-Azam ki mashoor 11 August 1947 ki speech ka main paigham kya tha?",
+ o:["Pakistan ek Islamic state hoga","Religion is personal — state barabar haqooq dega","Hindustan se dushman rahenge","Kashmir lenge"],a:1,
+ e:"11 August 1947 ki speech mein Jinnah ne kaha: 'Religion is not the business of the State' — har shehri ko baraabar haqooq milenge qat-nazar mazab ke."},
+
+{s:"PAKISTAN STUDIES",t:"Life of Quaid-e-Azam",
+ q:"Quaid-e-Azam ka janm kab aur kahan hua?",
+ o:["25 Dec 1876 — Karachi","25 Dec 1876 — Lahore","14 Aug 1876 — Karachi","25 Dec 1880 — Bombay"],a:0,
+ e:"Muhammad Ali Jinnah 25 December 1876 ko Karachi mein paida hue — Wazir Mansion mein. Usi liye 25 December 'Quaid Day' manaya jata hai."},
+
+{s:"PAKISTAN STUDIES",t:"Life of Allama Iqbal",
+ q:"Allama Iqbal ka 'Khutba-e-Allahabad' kab hua jisme unhone alag Muslim state ka tasawwur pesh kiya?",
+ o:["1929","1930","1935","1940"],a:1,
+ e:"Allama Iqbal ne 1930 mein Allahabad (Prayagraj) mein Muslim League ke session mein apna presidential address diya — NW India mein alag Muslim state ka tasawwur pesh kiya."},
+
+{s:"PAKISTAN STUDIES",t:"Life of Allama Iqbal",
+ q:"Allama Iqbal ki mashhoor poem 'Lab pe aati hai dua' kis ke liye likhi gayi?",
+ o:["Adult Muslims ke liye","School going Muslim children ke liye","Mujahideen ke liye","Women ke liye"],a:1,
+ e:"'Lab pe aati hai dua ban ke tamanna meri' — Iqbal ki yeh mashoor naatiya poem bachon ke liye likhi gayi — aj bhi schools mein padhi jati hai."},
+
+// ══════════════ PAKISTAN STUDIES — TREATIES & INTERNATIONAL (4) ══════════════
+{s:"PAKISTAN STUDIES",t:"International Treaties",
+ q:"SAARC ka headquarters kahan hai?",
+ o:["Islamabad","Delhi","Kathmandu","Dhaka"],a:2,
+ e:"SAARC (South Asian Association for Regional Cooperation) ka headquarters Kathmandu, Nepal mein hai — 1985 mein qaim hua."},
+
+{s:"PAKISTAN STUDIES",t:"International Treaties",
+ q:"ECO (Economic Cooperation Organization) mein kitne member countries hain?",
+ o:["8","10","12","6"],a:1,
+ e:"ECO mein 10 member states hain: Pakistan, Iran, Turkey, Afghanistan, Azerbaijan, Kazakhstan, Kyrgyzstan, Tajikistan, Turkmenistan, Uzbekistan."},
+
+{s:"PAKISTAN STUDIES",t:"International Treaties",
+ q:"CENTO (Central Treaty Organization) kab toot gaya?",
+ o:["1975","1979","1982","1991"],a:1,
+ e:"CENTO 1979 mein Iran ki Islamic Revolution ke baad khatam hua — Iran ke nikalne se yeh alliance toot gaya."},
+
+{s:"PAKISTAN STUDIES",t:"International Treaties",
+ q:"Pakistan ne Nuclear Non-Proliferation Treaty (NPT) par sign kiya?",
+ o:["Haan — 1968 mein","Haan — 1998 mein","Nahi — Pakistan NPT ka hissa nahi","Haan — 1992 mein"],a:2,
+ e:"Pakistan nے NPT sign nahi kiya — Pakistan NPT signatory nahi hai. India bhi nahi. Isliye Pakistan ke nuclear tests par us par IAEA supervision lagoo nahi."},
+
+// ══════════════ PAKISTAN STUDIES — SPORTS, SYMBOLS, KASHMIR, AGRI (5) ══════════════
+{s:"PAKISTAN STUDIES",t:"Sports in Pakistan",
+ q:"Pakistan ne Olympic Gold medal Hockey mein pehli baar kab jeeta?",
+ o:["1956 Melbourne","1960 Rome","1964 Tokyo","1968 Mexico"],a:1,
+ e:"Pakistan ne 1960 Rome Olympics mein pehla Olympic Gold medal Hockey mein jeeta — aur phir 1968, 1976, 1984 mein bhi jeeta."},
+
+{s:"PAKISTAN STUDIES",t:"National Symbols",
+ q:"Pakistan ka qoumi tarana kis ne likha?",
+ o:["Allama Iqbal","Hafeez Jalandhari","Faiz Ahmed Faiz","Josh Malihabadi"],a:1,
+ e:"Pakistan ka qoumi tarana 'Pak Sar Zameen' Hafeez Jalandhari ne likha aur Ahmed Ghulamali Chagla ne music compose kiya."},
+
+{s:"PAKISTAN STUDIES",t:"Kashmir Problem",
+ q:"UNMOGIP kya hai jo Kashmir mein kaam karta hai?",
+ o:["UN Military Observer Group in India and Pakistan","UN Medical Organization in Pakistan","UN Ministry of Global Intervention Programme","United Nations Military Operations in India-Pakistan"],a:0,
+ e:"UNMOGIP = United Nations Military Observer Group in India and Pakistan — 1949 se Kashmir mein ceasefire line monitor kar raha hai."},
+
+{s:"PAKISTAN STUDIES",t:"Agriculture in Pakistan",
+ q:"Pakistan ki economy mein agriculture ka hissa GDP mein takriban kitna hai?",
+ o:["10%","20–22%","35%","45%"],a:1,
+ e:"Agriculture Pakistan ke GDP mein takriban 20-22% contribute karta hai aur 40% se zyada labour force agriculture mein kaam karti hai."},
+
+{s:"PAKISTAN STUDIES",t:"Scientists & Personalities",
+ q:"'Dr. Abdul Qadeer Khan' ko Pakistan mein kya kaha jata hai?",
+ o:["Father of Democracy","Father of Pakistan's Atomic Bomb","Father of Space Programme","National Poet"],a:1,
+ e:"Dr. A.Q. Khan ko 'Mohsin-e-Pakistan' aur 'Father of Pakistan's Atomic Bomb' kaha jata hai — uranium enrichment technology laye."},
+
+// ══════════════ PAKISTAN STUDIES — PAKISTAN MOVEMENT (4) ══════════════
+{s:"PAKISTAN STUDIES",t:"Pakistan Movement",
+ q:"Lahore Resolution (Pakistan Resolution) kab paas hui?",
+ o:["23 March 1939","23 March 1940","14 August 1940","23 March 1941"],a:1,
+ e:"Lahore Resolution 23 March 1940 ko Minto Park (ab Minar-e-Pakistan) Lahore mein pass hui — isi se Pakistan ki officially maang rakhdi gayi."},
+
+{s:"PAKISTAN STUDIES",t:"Pakistan Movement",
+ q:"'Khilafat Movement' kab aur kyon shuru hua?",
+ o:["1919 — Ottoman Khalifat ki hifazat ke liye","1920 — Gandhi ke saath","1915 — WWI ke doran","1930 — Round Table Conference"],a:0,
+ e:"Khilafat Movement 1919-1924 — Ottoman Khalifat ko British attack se bachane ke liye. Muhammad Ali Johar aur Shaukat Ali ne lead kiya."},
+
+{s:"PAKISTAN STUDIES",t:"Pakistan Movement",
+ q:"'Simone Commission' (Simon Commission) ka boycott kyon kiya gaya?",
+ o:["Kyunke it was pro-Pakistan","Kyunke commission mein koi Indian member nahi tha","Kyunke budget zyada tha","Kyunke Jinnah ne mana kiya"],a:1,
+ e:"1927 ki Simon Commission mein sirf British members the — koi Indian shamil nahi tha — isliye Congress aur Muslim League dono ne boycott kiya. 'Simon Go Back' ka nara lagaya gaya."},
+
+{s:"PAKISTAN STUDIES",t:"Pakistan Movement",
+ q:"'Nehru Report 1928' Muslim League ne kyon reject kiya?",
+ o:["Separate electorate ki maang thi","Alag Muslim state ki demand thi","Report ne separate electorate reject kiya aur residual powers centre ko di","Urdu ko official language nahi maana"],a:2,
+ e:"Nehru Report ne Muslims ki do ahem mangen reject ki: (1) Alag electorate (2) Federal form (residual powers centre ko di) — isliye Jinnah ne 'Fourteen Points' pesh kiye."},
+
+// ══════════════ IQ / REASONING (15) ══════════════
+{s:"IQ / REASONING",t:"Arithmetic",
+ q:"Ek dukan dar ne 15% discount de kar Rs. 850 mein kuch beech diya. Original price kya thi?",
+ o:["Rs. 975","Rs. 1000","Rs. 1050","Rs. 980"],a:1,
+ e:"SP = CP × (1 - discount%). 850 = CP × 0.85. CP = 850 / 0.85 = Rs. 1000. (Check: 1000 - 15% = 850 ✓)"},
+
+{s:"IQ / REASONING",t:"Word Problems",
+ q:"Ali 3 din mein ek kaam karta hai, Bilal 6 din mein. Dono saath milein to kitne din mein karenge?",
+ o:["4 din","3 din","2 din","1.5 din"],a:2,
+ e:"Ali ki rate: 1/3 per day. Bilal ki rate: 1/6 per day. Saath: 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2. So kaam 2 din mein mukammal hoga."},
+
+{s:"IQ / REASONING",t:"Ratio",
+ q:"Ek school mein boys aur girls ka ratio 5:3 hai. Agar kul students 480 hain to girls kitni hain?",
+ o:["160","180","200","240"],a:1,
+ e:"Girls = (3/8) × 480 = 180. Yad rakhein: ratio 5:3 ka total parts = 8. Girls ka hissa = 3 parts = 3/8 × 480 = 180."},
+
+{s:"IQ / REASONING",t:"Arithmetic",
+ q:"Compound Interest: Rs. 10,000 par 2 saal ke liye 10% per annum. Total amount?",
+ o:["Rs. 12,000","Rs. 12,100","Rs. 11,000","Rs. 12,200"],a:1,
+ e:"CI Formula: A = P(1+r)^n = 10000 × (1.1)² = 10000 × 1.21 = Rs. 12,100. Simple Interest hota to 12,000 hota — lekin compound mein zyada."},
+
+{s:"IQ / REASONING",t:"Diagnostic Tests",
+ q:"Series: 2, 6, 12, 20, 30, ___",
+ o:["40","42","44","38"],a:1,
+ e:"Differences: 4,6,8,10,12... next difference = 12. So 30+12 = 42. Pattern hai n(n+1): 1×2, 2×3, 3×4, 4×5, 5×6, 6×7=42."},
+
+{s:"IQ / REASONING",t:"Diagnostic Tests",
+ q:"Agar FRIEND ko GSJFOE likha jaye to ENEMY kaise likha jayega?",
+ o:["FOFNZ","FOFOZ","FOFNY","FOFMZ"],a:0,
+ e:"Har letter +1 shift: E→F, N→O, E→F, M→N, Y→Z. So ENEMY = FOFNZ."},
+
+{s:"IQ / REASONING",t:"Word Problems",
+ q:"Ek train 200 meter lambi hai aur 90 km/h ki raftaar se chal rahi hai. Ek 300 meter lambe bridge ko paar karne mein kitna waqt lagega?",
+ o:["16 seconds","20 seconds","18 seconds","15 seconds"],a:1,
+ e:"Total distance = 200+300 = 500m. Speed = 90 km/h = 25 m/s. Time = 500/25 = 20 seconds."},
+
+{s:"IQ / REASONING",t:"Ratio",
+ q:"A:B = 3:4 aur B:C = 2:5. A:C = ?",
+ o:["3:10","6:20","3:5","6:10"],a:0,
+ e:"B ko common banao: A:B = 3:4 = 6:8. B:C = 2:5 = 8:20. So A:C = 6:20 = 3:10."},
+
+{s:"IQ / REASONING",t:"Graphs",
+ q:"Ek bar chart mein Jan=40, Feb=60, Mar=80. Average kya hai?",
+ o:["55","60","65","70"],a:1,
+ e:"Average = (40+60+80)/3 = 180/3 = 60. Simple average formula: Sum / Number of items."},
+
+{s:"IQ / REASONING",t:"Arithmetic",
+ q:"Ek aadmi ki salary mein pehle 20% izafa hua phir 20% kami. Net change kya hua?",
+ o:["Koi change nahi","4% izafa","4% kami","2% kami"],a:2,
+ e:"Maano salary 100. +20% = 120. Phir -20% of 120 = 96. Net = 4% kami. Yeh classic trap question hai — logo sochte hain zero change."},
+
+{s:"IQ / REASONING",t:"Diagnostic Tests",
+ q:"'Doctor : Hospital :: Teacher : ?'",
+ o:["Book","School","Student","Office"],a:1,
+ e:"Doctor kaam karta hai Hospital mein. Teacher kaam karta hai School mein. Yeh occupational setting analogy hai."},
+
+{s:"IQ / REASONING",t:"Word Problems",
+ q:"3 aadmi 3 kaam 3 din mein karte hain. 9 aadmi 9 kaam kitne din mein karenge?",
+ o:["9 din","1 din","3 din","27 din"],a:2,
+ e:"1 aadmi 1 kaam karta hai 3 din mein. 9 aadmi 9 kaam bhi 3 din mein karenge — kyunke kaam aur aadmi dono 3x hue — net time same raha."},
+
+{s:"IQ / REASONING",t:"Arithmetic",
+ q:"Agar ek cheez Rs.240 mein bechne par 20% profit hoti hai, to ise Rs.270 mein bechne par profit % kya hogi?",
+ o:["30%","32.5%","35%","37.5%"],a:2,
+ e:"CP = 240/1.2 = Rs.200. Profit at 270 = 70. Profit % = 70/200 × 100 = 35%."},
+
+{s:"IQ / REASONING",t:"Diagnostic Tests",
+ q:"Sab Cats dogs hain. Sab Dogs birds hain. Logical conclusion kya hai?",
+ o:["Kuch cats birds hain","Sab cats birds hain","Koi cat bird nahi","Nahi kaha ja sakta"],a:1,
+ e:"Deductive syllogism: Cats→Dogs→Birds. Agar sab cats dogs hain aur sab dogs birds hain, to zaroor sab cats birds hain. Yeh valid syllogism hai."},
+
+{s:"IQ / REASONING",t:"Ratio",
+ q:"Ek mixture mein milk aur water 4:1 ratio mein hai. Mixture 10 liter hai. Milk kitna hai?",
+ o:["6 liter","7 liter","8 liter","9 liter"],a:2,
+ e:"Milk = (4/5) × 10 = 8 liter. Water = (1/5) × 10 = 2 liter. Check: 8+2=10 ✓ aur ratio 8:2 = 4:1 ✓"}
+
+];
+
+// ─── STATE ───
+let cur=0,score=0,wrongs=0,skips=0,picks=[],timer,secs=5400;
+
+function startQ(){
+  document.getElementById('start-scr').style.display='none';
+  document.getElementById('quiz-scr').style.display='block';
+  document.getElementById('meta-bar').style.display='flex';
+  document.getElementById('prog-track').style.display='block';
+  picks=new Array(Qs.length).fill(null);
+  cur=0;score=0;wrongs=0;skips=0;
+  startTimer();
+  render();
+}
+
+function startTimer(){
+  timer=setInterval(()=>{
+    secs--;
+    const m=Math.floor(secs/60),s=secs%60;
+    const el=document.getElementById('timer-el');
+    el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if(secs<=300)el.classList.add('warn');
+    if(secs<=0){clearInterval(timer);showResult();}
+  },1000);
+}
+
+function render(){
+  const q=Qs[cur];
+  // subject tag
+  const tag=document.getElementById('q-subj-tag');
+  tag.textContent=q.s;
+  tag.className='q-subj-tag '+(q.s==='ENGLISH'?'tag-eng':q.s==='PAKISTAN STUDIES'?'tag-pak':'tag-iq');
+  document.getElementById('q-topic-tag').textContent=q.t;
+  document.getElementById('qnb').textContent=String(cur+1).padStart(2,'0');
+  document.getElementById('qcount').textContent=`${cur+1}/100`;
+  document.getElementById('q-txt').textContent=q.q;
+  document.getElementById('exp-panel').style.display='none';
+  document.getElementById('exp-txt').textContent='';
+  document.getElementById('btn-nxt').disabled=true;
+
+  // progress
+  document.getElementById('prog-fill').style.width=((cur/Qs.length)*100)+'%';
+
+  const keys=['A','B','C','D'];
+  const list=document.getElementById('opts-list');
+  list.innerHTML='';
+  q.o.forEach((opt,i)=>{
+    const li=document.createElement('li');
+    li.className='opt-li';
+    li.innerHTML=`<span class="opt-alpha">${keys[i]}</span><span class="opt-txt">${opt}</span>`;
+    if(picks[cur]!==null){
+      li.classList.add('locked');
+      if(i===q.a)li.classList.add('correct');
+      else if(i===picks[cur])li.classList.add('wrong');
+      else li.classList.add('faded');
+      document.getElementById('btn-nxt').disabled=false;
+      document.getElementById('exp-panel').style.display='block';
+      document.getElementById('exp-txt').textContent=q.e;
+    } else {
+      li.onclick=()=>pick(li,i);
+    }
+    list.appendChild(li);
+  });
+
+  // re-animate
+  const p=document.getElementById('q-paper');
+  p.style.animation='none';p.offsetHeight;p.style.animation='slideIn 0.3s ease both';
+}
+
+function pick(el,i){
+  const q=Qs[cur];
+  picks[cur]=i;
+  if(i===q.a){score++;document.getElementById('live-s').textContent=score;}
+  else{wrongs++;document.getElementById('live-w').textContent=wrongs;}
+  document.querySelectorAll('.opt-li').forEach((li,idx)=>{
+    li.classList.add('locked');li.onclick=null;
+    if(idx===q.a)li.classList.add('correct');
+    else if(idx===i)li.classList.add('wrong');
+    else li.classList.add('faded');
+  });
+  document.getElementById('exp-panel').style.display='block';
+  document.getElementById('exp-txt').textContent=q.e;
+  document.getElementById('btn-nxt').disabled=false;
+}
+
+function skipQ(){
+  if(picks[cur]===null){picks[cur]=-1;skips++;document.getElementById('live-sk').textContent=skips;}
+  nextQ();
+}
+
+function nextQ(){
+  if(cur<Qs.length-1){cur++;render();}else showResult();
+}
+
+function showResult(){
+  clearInterval(timer);
+  document.getElementById('quiz-scr').style.display='none';
+  document.getElementById('prog-fill').style.width='100%';
+  const pct=(score/Qs.length)*100;
+  document.getElementById('r-sc').textContent=score;
+  document.getElementById('rc').textContent=score;
+  document.getElementById('rw').textContent=wrongs;
+  document.getElementById('rsk').textContent=skips;
+  let grade,emoji,msg;
+  if(pct>=80){grade='A';emoji='🏆';msg='Zabardast! Aap FIA Assistant post ke liye bilkul tayaar hain. Kamaal performance!';}
+  else if(pct>=65){grade='B';emoji='👍';msg='Bohat achha! Thodi mehnat aur karein — aap zaroor pass honge.';}
+  else if(pct>=50){grade='C';emoji='📚';msg='Sirf pass hua! Har topic ko dhyan se dobara parhen — especially weak subjects.';}
+  else{grade='F';emoji='💪';msg='Himmat rakhein! Explanations parhen, topic by topic tayari karein. Aap kar saktay hain!';}
+  document.getElementById('r-emoji').textContent=emoji;
+  document.getElementById('r-title').textContent=pct>=50?'MUBARAK HO!':'HAUSLA RAKHEIN!';
+  document.getElementById('r-msg').textContent=msg;
+  document.getElementById('r-grade').textContent=`GRADE ${grade} — ${pct.toFixed(1)}%`;
+  document.getElementById('r-grade').className='grade-pill g'+grade;
+
+  const list=document.getElementById('rev-list');list.innerHTML='';
+  Qs.forEach((q,i)=>{
+    const p=picks[i];
+    let cls,badge,ans;
+    if(p===null||p===-1){cls='rs';badge='SKIP';ans='Is sawal ko skip kiya gaya';}
+    else if(p===q.a){cls='rc';badge='✓ SAHI';ans=`Jawab: ${q.o[q.a]}`;}
+    else{cls='rw';badge='✗ GALAT';ans=`Aapka: ${p>=0?q.o[p]:'—'} | Sahi: ${q.o[q.a]}`;}
+    list.innerHTML+=`<div class="rev-card ${cls}">
+      <div class="rev-hd"><span class="rev-badge">${badge}</span><span class="rev-q">Q${i+1}. ${q.q.substring(0,80)}${q.q.length>80?'...':''}</span></div>
+      <div class="rev-ans">${ans}</div>
+    </div>`;
+  });
+  document.getElementById('result-scr').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function retryQ(){
+  document.getElementById('result-scr').style.display='none';
+  secs=5400;
+  document.getElementById('timer-el').textContent='90:00';
+  document.getElementById('timer-el').classList.remove('warn');
+  document.getElementById('live-s').textContent='0';
+  document.getElementById('live-w').textContent='0';
+  document.getElementById('live-sk').textContent='0';
+  Qs.sort(()=>Math.random()-0.5);
+  startQ();
+}
+</script>
+</body>
+</html>
